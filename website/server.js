@@ -1,10 +1,19 @@
 //Runs instantly as I change it because of devstart
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   console.log("Here");
-  res.send("Hi");
+  res.render("index");
 });
 
-app.listen(3000);
+const testRouter = require("./routes/test");
+
+app.use("/test", testRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
