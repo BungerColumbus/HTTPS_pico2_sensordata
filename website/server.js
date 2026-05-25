@@ -3,6 +3,11 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.static("public"));
+app.use(
+  "/css-reset",
+  express.static(__dirname + "/node_modules/the-new-css-reset/css"),
+);
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {

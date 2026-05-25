@@ -1,21 +1,16 @@
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
-import pin from "url:./images/pin.svg";
-import ash from "url:./images/oak.jpg";
-
 var mapOptions = {
   center: [51.4484, 5.4909],
   zoom: 16,
 };
 
 var map = new L.map("map", mapOptions);
-
-var layer = new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+var layer = new L.TileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+);
 map.addLayer(layer);
 
 var customIcon = L.icon({
-  iconUrl: pin,
+  iconUrl: "/images/pin.svg",
   iconSize: [40, 40],
   iconAnchor: [20, 40],
   popupAnchor: [0, -40],
@@ -26,11 +21,10 @@ var pins = [
     coords: [51.4484, 5.4909],
     title: "Common ash -- Campus Centre",
     description: "First image you find when you look up the word tree...",
-    image: ash,
+    image: "/images/oak.jpg", // Replace "ash" asset variable with straight path
     imageAlt: "The ash tree in the middle of the campus",
     icon: customIcon,
   },
-  // ...
 ];
 
 var aside = document.getElementById("map-aside");

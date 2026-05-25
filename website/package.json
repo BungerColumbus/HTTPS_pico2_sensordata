@@ -13,7 +13,8 @@
   "type": "commonjs",
   "dependencies": {
     "ejs": "^5.0.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "the-new-css-reset": "^1.11.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

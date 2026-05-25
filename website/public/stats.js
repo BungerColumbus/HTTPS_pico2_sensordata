@@ -1,5 +1,3 @@
-import Plotly from "plotly.js-dist-min";
-
 const green = "#6d7246",
   brown = "#7a5a37",
   sage = "#cdd0b3";
