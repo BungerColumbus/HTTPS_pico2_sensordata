@@ -1,11 +1,248 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    This is HTML!!!
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parcel Vanilla App</title>
+    <link rel="stylesheet" href="styles/fonts.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/form.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="../node_modules/the-new-css-reset/css/reset.css" />
+    <script type="module" src="observer.js"></script>
+    <script type="module" src="map.js"></script>
+    <script type="module" src="stats.js"></script>
+  </head>
+  <body>
+    <header id="header-global" class="navbar">
+      <img src="images/logo.svg" alt="electritree logo" />
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#impact">Impact</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact us</a>
+      </nav>
+    </header>
+
+    <section id="home">
+      <header>
+        <div class="leaf-bar">
+          <img src="images/leaves.svg" alt="leaves" />
+          <img src="images/leaves.svg" alt="leaves" />
+        </div>
+        <h1>Meet the ElectriciTree</h1>
+      </header>
+      <p>
+        This isn't just a tree, it's a self-powered data centre. By harvesting the energy of its swaying branches, our system streams live microclimate and
+        ecosystem stats straight to this dashboard.
+      </p>
+      <header>
+        <h1>Explore the Ecosystem</h1>
+        <div class="leaf-bar">
+          <img src="images/leaves.svg" alt="leaves" />
+          <img src="images/leaves.svg" alt="leaves" />
+        </div>
+      </header>
+      <p>
+        Click through the tabs on the top to explore cumulative stats and the campus map showing each individual tree's live vitals. From humidity levels
+        to tree growth rates, you can see exactly how our ecosystem is thriving in real time!
+      </p>
+      <img src="images/tree.svg" alt="tree" />
+      <div id="map"></div>
+      <p id="map-hint">
+        <span><img src="images/pin.svg" alt="pin" /></span> Click a tree pin to see its live stats
+      </p>
+      <aside id="map-aside">
+        <header>
+          <h2 id="aside-title"></h2>
+          <button id="aside-close"><span class="material-symbols-outlined">close</span></button>
+        </header>
+        <img alt="" />
+        <article>
+          <p id="aside-description"></p>
+          <dl>
+            <div>
+              <dt>Temperature</dt>
+              <dd>—</dd>
+            </div>
+            <div>
+              <dt>Humidity</dt>
+              <dd>—</dd>
+            </div>
+            <div>
+              <dt>Wind</dt>
+              <dd>—</dd>
+            </div>
+            <div>
+              <dt>Battery</dt>
+              <dd>—</dd>
+            </div>
+          </dl>
+        </article>
+      </aside>
+    </section>
+
+    <section id="impact">
+      <header>
+        <h1>Our Impact</h1>
+        <div class="leaf-bar">
+          <img src="images/leaves.svg" alt="leaves" />
+          <img src="images/leaves.svg" alt="leaves" />
+        </div>
+      </header>
+      <div>
+        <div data-variant="green">
+          <dl>
+            <dt>Trees Electrified</dt>
+            <dd>12,804 <small>since 2026</small></dd>
+          </dl>
+        </div>
+        <figure data-span="3">
+          <figcaption>Trees Electrified over Time</figcaption>
+          <div id="chart-trees"></div>
+        </figure>
+        <div data-variant="brown">
+          <dl>
+            <dt>CO₂ offset</dt>
+            <dd>640t<small>estimated total</small></dd>
+          </dl>
+        </div>
+        <div data-variant="lt-green">
+          <dl>
+            <dt>Volunteers</dt>
+            <dd>1,240 <small>active this year</small></dd>
+          </dl>
+        </div>
+        <figure data-span="2">
+          <figcaption>Energy generated (kWh)</figcaption>
+          <div id="chart-energy"></div>
+        </figure>
+        <div data-variant="green" data-span="4">
+          <dl>
+            <dt>Locations</dt>
+            <dd>38 <small>across NL</small></dd>
+          </dl>
+        </div>
+        <figure data-span="4">
+          <figcaption>Microclimate -- temperature &amp; humidity</figcaption>
+          <div id="chart-climate"></div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="about">
+      <header>
+        <h1>An Electrifying Story</h1>
+        <div class="leaf-bar">
+          <img src="images/leaves.svg" alt="leaves" />
+          <img src="images/more_leaves.svg" alt="more leaves" />
+          <img src="images/leaves.svg" alt="leaves" />
+        </div>
+      </header>
+      <article>
+        <p>
+          How does a tree become a self-powered data centre? We wanted to connect the campus to its living environment without leaving a carbon footprint.
+          Our team designed a weather-resistant kinetic generator that hooks up safely to a tree, capturing the mechanical energy of swaying branches to
+          power a network of sensors. This setup fits within the tree's natural footprint, causing zero permanent damage to the tree and the wildlife
+          around it.
+        </p>
+        <p>
+          Each ElectriciTree doubles as a student hangout spot or workspace featuring a low-energy E-ink display which displays that specific tree's
+          vitals. Scanning the QR code instantly pulls up this website which tracks our collective campus network, allowing us to view our combined
+          environmental impact or toggle between different metrics to see how our campus ecosystem is thriving as a whole.
+        </p>
+      </article>
+      <img src="images/tree.svg" alt="tree" />
+    </section>
+
+    <section id="faq">
+      <header>
+        <h1>Frequently Asked Questions</h1>
+        <div class="leaf-bar">
+          <img src="images/leaves.svg" alt="leaves" />
+          <img src="images/even_more_leaves.svg" alt="even more leaves" />
+          <img src="images/leaves.svg" alt="leaves" />
+        </div>
+      </header>
+      <article>
+        <details name="question">
+          <summary>
+            <h4>How is the system powered if there is no wind to sway the branches?</h4>
+            <span class="material-symbols-outlined">expand_more</span>
+          </summary>
+          <p>
+            The kinetic energy harvested during windy periods is stored in an integrated, long-life battery backup system. This ensures the eco-sensors and
+            live data streams remain fully operational 24/7, even on completely calm days.
+          </p>
+        </details>
+        <hr />
+        <details name="question">
+          <summary>
+            <h4>What is the purpose of collecting all this campus environmental data?</h4>
+            <span class="material-symbols-outlined">expand_more</span>
+          </summary>
+          <p>
+            By collecting the environmental data from all campus trees into this central website, it acts as an open-source campus resource. The data helps
+            track microclimate shifts, monitors local biodiversity health and raise awareness about sustainability by making invisible ecological processes
+            visible. Students and researchers can also use the data for academic projects, sustainability tracking, or just to check which part of campus
+            has the best weather right now.
+          </p>
+        </details>
+        <hr />
+        <details name="question">
+          <summary>
+            <h4>Is the mechanism built with sustainable materials that are safe to use around trees?</h4>
+            <span class="material-symbols-outlined">expand_more</span>
+          </summary>
+          <p>
+            Yes, the system specifically uses bio-based Dyneema rope for the mechanism and carbon-negative materials like bio-based glulam for the
+            furniture. This ensures that the components interacting closely with the trees are naturally sourced, minimally disruptive to the environment
+            and free of toxic environmental risks.
+          </p>
+        </details>
+      </article>
+      <img src="images/tree.svg" alt="tree" />
+    </section>
+
+    <section id="contact">
+      <header>
+        <h1>Contact</h1>
+        <div class="leaf-bar">
+          <img src="images/leaves.svg" alt="leaves" />
+          <img src="images/more_leaves.svg" alt="more leaves" />
+          <img src="images/leaves.svg" alt="leaves" />
+        </div>
+      </header>
+      <div id="newsletter">
+        <h2>Want to follow the project's progress? Sign up to our newsletter!</h2>
+        <form>
+          <input type="text" name="name" placeholder="Name" />
+          <input type="email" name="email" placeholder="Email*" required />
+          <button>Sign up now!</button>
+        </form>
+        <small>
+          You can amend or withdraw your consent at any time by emailing us. Further details regarding how we process your personal data can be found in
+          our privacy policy.
+        </small>
+      </div>
+      <div>
+        <h2>Have questions, feedback, or want to learn more about the project? Reach out to us through:</h2>
+        <nav>
+          <a href="https://instagram.com"><img src="images/instagram.svg" alt="instagram icon" /></a>
+          <a href="mailto:d.d.groot1@student.tue.nl"><img src="images/mail.svg" alt="mail icon" /></a>
+          <a href="tel:+31643149781"><img src="images/phone.svg" alt="phone icon" /></a>
+          <a href="https://maps.app.goo.gl/Kiku26q4oLckiE67A"><img src="images/location.svg" alt="location pin icon" /></a>
+        </nav>
+      </div>
+      <img src="images/tree.svg" alt="tree" />
+    </section>
+
+    <footer>
+      <img src="images/logo.svg" alt="logo" />
+      <small>2026 ElectriciTree -- a non-profit TU Eindhoven student project. All data is publicly available.</small>
+      <hr />
+      <img src="images/footer.svg" alt="leaves footer" />
+    </footer>
+  </body>
 </html>
