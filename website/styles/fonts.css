@@ -1,0 +1,62 @@
+/* Book */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-Book.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+/* Book italic */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-BookIt.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+}
+
+/* Medium */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-Med.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+/* Medium italic */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-MedIt.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-stretch: normal;
+}
+
+/* Bold */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-Hvy.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+}
+
+/* Condensed */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-DmCd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: condensed;
+}
+
+/* Condensed italic */
+@font-face {
+    font-family: "Franklin Gothic";
+    src: url('../fonts/ITCFranklinGothicStd-DmCdIt.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-stretch: condensed;
+}
