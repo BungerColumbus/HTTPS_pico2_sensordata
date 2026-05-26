@@ -10,9 +10,20 @@ app.use(
 );
 app.set("view engine", "ejs");
 
+let dataFromPico = "No data from pico yet";
+
+app.post("/api/data", (req, res) => {
+  if (req.body && req.body.status) {
+    latestPicoData = req.body.status; // Update the variable
+    console.log(`Received from Pico: ${latestPicoData}`);
+    return res.status(200).json({ message: "Data received successfully!" });
+  }
+  return res.status(400).json({ error: "Oops" });
+});
+
 app.get("/", (req, res) => {
   console.log("Here");
-  res.render("index");
+  res.render("index", { data: dataFromPico });
 });
 
 const testRouter = require("./routes/test");
