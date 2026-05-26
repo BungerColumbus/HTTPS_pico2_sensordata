@@ -6,9 +6,9 @@ import machine
 import json
 
 
-ssid = 'WiFi 3.1'
-password = 'c6etrApEcR'
-website = "http://http://188.166.105.198/api/data"
+ssid = 'Go Go Hotspot Gadget!!!'
+password = 'parolamea:)'
+website = "http://188.166.105.198/api/data"
 
 def connect():
     wlan = network.WLAN(network.STA_IF)
