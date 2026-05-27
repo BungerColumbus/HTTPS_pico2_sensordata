@@ -30,8 +30,13 @@ app.post("/api/data", (req, res) => {
   // Unpack the compressed keys from the Pico payload
   const { t1, h1, v, d } = req.body;
 
-  if (d === undefined) {
-    return res.status(400).json({ error: "Missing required core sensor data" });
+  // We check the body of the request and make sure it's a string
+  if (typeof req.body == "string") {
+    try {
+      body = JSON.parse(body);
+    } catch (e) {
+      console.error("Failed to parse body string:", e);
+    }
   }
 
   // We get the body of the request and its status and
