@@ -23,7 +23,7 @@ app.use(express.text({ type: "*/*" }));
 app.set("view engine", "ejs");
 
 // dataFromPico dynamic variable
-let dataFromPico = "No data from pico yet";
+let dataFromPico = { t1: 0, h1: 0, v: 0, d: 0 };
 
 // When we have a post request for our /api/data:
 app.post("/api/data", (req, res) => {
@@ -40,8 +40,8 @@ app.post("/api/data", (req, res) => {
   }
 
   // We get the body of the request and its status and
-  if (req.body && req.body.status) {
-    dataFromPico = req.body.status; // Update the dynamic variable
+  if ((t1 !== undefined && h1 !== undefined && v !== undefined && d !== undefined)) {
+    dataFromPico = { t1, h1, v, d }; // Update the dynamic variable
     console.log(`--- New Batch Received ---`);
     console.log("Raw Body: " + req.body);
     console.log(`Room Temp: ${t1}°C`);

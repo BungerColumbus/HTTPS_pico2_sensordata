@@ -24,7 +24,7 @@ counter = 0
 def read_sensors():
     distance = get_distance(echo = echo, trig = trig)
     print(distance)
-    return 51 + counter, 24 + counter, 31 + counter, distance
+    return(51 + counter, 24 + counter, 31 + counter, distance)
 
 while True:
     network_connection.send_data(read_sensors())
