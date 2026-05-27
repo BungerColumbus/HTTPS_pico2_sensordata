@@ -17,12 +17,15 @@ try:
 except KeyboardInterrupt:
     reset()
 
+#Sensor data
+distance = 0
 counter = 0
 
-while True:
+def read_sensors():
     distance = get_distance(echo = echo, trig = trig)
     print(distance)
-    counter += 1
-    status = f"Hello from Pico 2W!\nUpdate #{counter}\nDistance: {distance} cm"
-    network_connection.send_data(status)
+    return 51 + counter, 24 + counter, 31 + counter, distance
+
+while True:
+    network_connection.send_data(read_sensors())
     time.sleep_ms(10000)

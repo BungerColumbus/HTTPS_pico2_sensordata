@@ -12,10 +12,9 @@ def get_distance(echo, trig):
     
     time.sleep_us(10)
 
-    print("wawawa")
     # measures the duration of the incoming pulse on the ECHO pin
     # time_pulse_us returns the pulse length in microseconds
-    pulse_time = time_pulse_us(echo, 1, 30000) # 30ms timeout (max range)
+    pulse_time = time_pulse_us(echo, 1, 1100000) # 30ms timeout (max range)
         
 
 

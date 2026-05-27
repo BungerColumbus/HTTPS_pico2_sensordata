@@ -27,21 +27,22 @@ let dataFromPico = "No data from pico yet";
 
 // When we have a post request for our /api/data:
 app.post("/api/data", (req, res) => {
-  console.log("Raw Body: " + req.body);
+  // Unpack the compressed keys from the Pico payload
+  const { t1, h1, v, d } = req.body;
 
-  // We check the body of the request and make sure it's a string
-  if (typeof req.body == "string") {
-    try {
-      body = JSON.parse(body);
-    } catch (e) {
-      console.error("Failed to parse body string:", e);
-    }
+  if (d === undefined) {
+    return res.status(400).json({ error: "Missing required core sensor data" });
   }
 
   // We get the body of the request and its status and
   if (req.body && req.body.status) {
     dataFromPico = req.body.status; // Update the dynamic variable
-    console.log(`Received from Pico: ${dataFromPico}`); // Put in the log what we receive
+    console.log(`--- New Batch Received ---`);
+    console.log("Raw Body: " + req.body);
+    console.log(`Room Temp: ${t1}°C`);
+    console.log(`Humidity: ${h1}%`);
+    console.log(`Battery Voltage: ${v}V`);
+    console.log(`Distance Sensor: ${d}cm`);
     return res.status(200).json({ message: "Data received successfully!" });
   }
   // Error

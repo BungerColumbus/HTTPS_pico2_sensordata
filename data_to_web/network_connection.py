@@ -20,32 +20,27 @@ def connect():
     print(wlan.ifconfig())
 
 def send_data(status_message):
+    # Read all data points
+    temperature, humidity, voltage, distance = status_message
+    
     # Prepare the JSON payload
-    payload = {"status": status_message}
+    payload = {
+        "t1": temperature,
+        "h1": humidity,
+        "v": voltage,
+        "d": distance
+    }
+
     headers = {"Content-Type": "application/json"}
     
     try:
         print(f"Sending data: {status_message}")
-        # Make the POST request
+        # Making the POST request
         response = urequests.post(website, data=json.dumps(payload), headers=headers)
         
         print("Server Response Code:", response.status_code)
         print("Server Response:", response.text)
         
-        response.close() # Always close the connection to free memory
+        response.close() # Closing the connection to free memory
     except Exception as e:
         print("Failed to send data:", e)
-
-
-counter = 0
-
-try:
-    connect()
-except KeyboardInterrupt:
-    machine.reset()
-
-while True:
-    counter += 1
-    status = f"Hello from Pico 2W! Update #{counter}"
-    send_data(status)
-    sleep_ms(10000)
