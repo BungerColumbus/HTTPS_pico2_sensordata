@@ -40,7 +40,12 @@ app.post("/api/data", (req, res) => {
   }
 
   // We get the body of the request and its status and
-  if ((t1 !== undefined && h1 !== undefined && v !== undefined && d !== undefined)) {
+  if (
+    t1 !== undefined &&
+    h1 !== undefined &&
+    v !== undefined &&
+    d !== undefined
+  ) {
     dataFromPico = { t1, h1, v, d }; // Update the dynamic variable
     console.log(`--- New Batch Received ---`);
     console.log("Raw Body: " + req.body);
@@ -59,7 +64,12 @@ app.post("/api/data", (req, res) => {
 // This is basically loading the index.ejs (html) on the website and also the dataFromPico on wherever I have data inserted
 app.get("/", (req, res) => {
   console.log("Here");
-  res.render("index", { data: dataFromPico });
+  res.render("index", {
+    distance: dataFromPico.d,
+    temperature: dataFromPico.t1,
+    humidity: dataFromPico.h1,
+    voltage: dataFromPico.v,
+  });
 });
 
 // This is in order to connect to use the other .js files from /routes

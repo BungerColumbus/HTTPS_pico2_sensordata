@@ -41,10 +41,7 @@
       <p>
         This isn't just a tree, it's a self-powered data centre. By harvesting the energy of its swaying branches, our system streams live microclimate and
         ecosystem stats straight to this dashboard.
-
-        For now the data will be placed in this part of the page:
       </p>
-      <p> <strong><%= data %></strong> </p>
       <header>
         <h1>Explore the Ecosystem</h1>
         <div class="leaf-bar">
@@ -72,18 +69,18 @@
           <dl>
             <div>
               <dt>Temperature</dt>
-              <dd>—</dd>
+              <dd><%= temperature %></dd>
             </div>
             <div>
               <dt>Humidity</dt>
-              <dd>—</dd>
+              <dd><%= humidity %></dd>
             </div>
             <div>
               <dt>Wind</dt>
-              <dd>—</dd>
+              <dd><%= distance %></dd>
             </div>
             <div>
-              <dt>Battery</dt>
+              <dt><%= voltage %></dt>
               <dd>—</dd>
             </div>
           </dl>
