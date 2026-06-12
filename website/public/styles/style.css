@@ -1,3 +1,9 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --dark-green: #6d7246;
   --light-green: #cdd0b3;
@@ -16,7 +22,7 @@ html {
 }
 
 body {
-  width: 101vw;
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -183,7 +189,7 @@ section {
   }
   > header {
     padding-block: 7.5rem;
-    width: 100%;
+    width: 80%;
   }
   > article {
     max-width: 50vw;
@@ -337,12 +343,12 @@ section {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column: 1 / -1;
-  gap: 12px;
+  gap: 5px;
 
   > * {
     border-radius: 16px;
     background: var(--sand);
-    padding: 1.5rem;
+    padding: 2rem;
 
     &[data-span="2"] {
       grid-column: span 2;

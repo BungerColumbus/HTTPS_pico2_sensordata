@@ -14,10 +14,17 @@ def connect():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     wlan.connect(ssid, password)
+    attempts = 0
     while (wlan.isconnected() == False):
         print('Attempting to connect...')
+        attempts += 1
+        if attempts >= 20:
+            wlan.active(False)
+            # Raise a standard Python exception with a custom message
+            raise OSError("Wi-Fi connection failed: Max attempts reached.")
         sleep_ms(1000)
     print(wlan.ifconfig())
+
 
 def send_data(status_message):
     # Read all data points
