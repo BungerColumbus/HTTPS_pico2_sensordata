@@ -116,17 +116,17 @@ form textarea {
     position: absolute;
     width: var(--leaf-wd);
     &:first-child {
-      right: 33px;
+      right: -67px;
       bottom: var(--bar-ht);
     }
     &:nth-child(2):not(:last-child) {
       top: var(--bar-ht);
-      right: 67px;
+      right: 33px;
       width: calc(var(--leaf-wd) * 1.33);
     }
     &:last-child {
       top: var(--bar-ht);
-      right: 67px;
+      right: 200px;
       transform: rotate(180deg);
     }
   }
