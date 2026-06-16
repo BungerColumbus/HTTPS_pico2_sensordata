@@ -103,7 +103,7 @@ form textarea {
 /* #endregion base */
 
 .leaf-bar {
-  --leaf-wd: 150px;
+  --leaf-wd: 100px;
   --bar-ht: 15px;
 
   position: relative;
@@ -121,12 +121,12 @@ form textarea {
     }
     &:nth-child(2):not(:last-child) {
       top: var(--bar-ht);
-      right: -200px;
+      right: -100px;
       width: calc(var(--leaf-wd) * 1.33);
     }
     &:last-child {
       top: var(--bar-ht);
-      right: -200px;
+      right: 0px;
       transform: rotate(180deg);
     }
   }
