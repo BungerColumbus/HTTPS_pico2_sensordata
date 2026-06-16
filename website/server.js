@@ -34,7 +34,7 @@ app.set("view engine", "ejs");
 let dataFromPico = { t1: 0, h1: 0, d: 0 }; // Added 'v' to match your console logs
 
 app.post("/api/data", (req, res) => {
-  const { t1, h1, d, v } = req.body;
+  const { t1, h1, d } = req.body;
 
   if (t1 !== undefined && h1 !== undefined && d !== undefined) {
     dataFromPico = { t1, h1, d };
