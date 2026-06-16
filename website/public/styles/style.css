@@ -126,7 +126,7 @@ form textarea {
     }
     &:last-child {
       top: var(--bar-ht);
-      right: 200px;
+      right: 67px;
       transform: rotate(180deg);
     }
   }
