@@ -1,54 +1,69 @@
 import machine
 from machine import Pin, reset, deepsleep, freq
 from ultrasound import get_distance
-from microphone import sample_microphone
-from utime import sleep_ms
+from microphone import record_audio
+from temp_and_hum import get_dht_readings
+from utime import sleep_ms  # Added regular sleep
 import network_connection
+import sys
 
-# Underclock the CPU
-freq(50000000) 
+    # 3 seconds to press Ctrl+C before the script runs wild
+print("Booting up... Press Ctrl+C now to stop.")
+sleep_ms(3000) 
 
 pin = Pin("LED", Pin.OUT)
 trig = Pin(14, Pin.OUT)
 echo = Pin(15, Pin.IN)
 
-# Sensor Power Gating
+    # Sensor Power Gating
 sensor_power = Pin(16, Pin.OUT)
 sensor_power.value(0)
 
 pin.toggle()
 print("Pico ON")
 
+    # Wrapping connection in try/except
 try:
     network_connection.connect()
 except KeyboardInterrupt:
-    reset()
-
-
-def read_sensors():
-    sensor_power.value(1)
-    
-    sleep_ms(50) 
-    
-    distance = get_distance(echo=echo, trig=trig)
-    mic = sample_microphone(50)
-    
-    sensor_power.value(0)
-    
-    print(distance)
-    print(mic)
-    return (51, 24, mic, distance)
-
-# Gather and send data
-try:
-    data = read_sensors()
-    network_connection.send_data(data)
+    print("Detected Ctrl+C, exiting cleanly.")
+    sys.exit()  # Exit to REPL instead of resetting the whole board
 except Exception as e:
-    print(f"Failed to process or send data: {e}")
+    print(f"Connection failed: {e}")
 
-pin.value(0) 
+while True:
 
-print("Going to deep sleep...")
+    def read_sensors():
+        sensor_power.value(1)
+        sleep_ms(50) 
+    
+        distance = get_distance(echo=echo, trig=trig)
+        temperature, humidity = get_dht_readings()
+    
+        sensor_power.value(0)
+        return (temperature, humidity, distance)
 
-# Sleep for 10 seconds (10,000 ms). The Pico will reset and run this script again upon waking.
-deepsleep(10000)
+    # Gather and send data
+    try:
+        data = read_sensors()
+        network_connection.send_data(data)
+    except KeyboardInterrupt:
+        print("Detected Ctrl+C, exiting cleanly.")
+        sys.exit()
+    except Exception as e:
+        print(f"Failed to process or send data: {e}")
+
+    try:
+        file_name = record_audio()
+        network_connection.send_wav(file_name)
+    except KeyboardInterrupt:
+        print("Detected Ctrl+C, exiting cleanly.")
+        sys.exit()
+    except Exception as e:
+        print(f"Failed to process or send audio data: {e}")
+
+    pin.value(0) 
+
+    print("Going to sleep...")
+    # Sleep for 10 seconds.
+    sleep_ms(10000)
