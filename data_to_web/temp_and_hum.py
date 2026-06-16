@@ -2,8 +2,7 @@ import dht
 from machine import Pin
 
 def get_dht_readings():
-    # Initialize the DHT11 sensor on the provided pin
-    sensor = dht.DHT11(22)
+    sensor = dht.DHT11(Pin(22)) 
     
     try:
         # Trigger the measurement
@@ -16,6 +15,6 @@ def get_dht_readings():
         return temp_c, hum
         
     except OSError as e:
-        # DHT sensors can occasionally fail to read, which throws an OSError
+        # DHT sensors can occasionally fail to read
         print("Failed to read from DHT sensor:", e)
         return None, None

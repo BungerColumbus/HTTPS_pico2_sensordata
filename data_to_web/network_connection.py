@@ -6,78 +6,91 @@ import machine
 import json
 import os
 
+ssid = 'WiFi 3.1'
+password = 'c6etrApEcR'
+data_website = "http://188.166.105.198/api/data"
+audio_website = "http://188.166.105.198/api/upload-audio"
 
-ssid = 'Go Go Hotspot Gadget!!!'
-password = 'parolamea:)'
-website = "http://188.166.105.198/api/data"
-
-def connect():
+def ensure_connection():
+    """Checks if connected to Wi-Fi, and reconnects if dropped."""
     wlan = network.WLAN(network.STA_IF)
+    
+    if wlan.isconnected():
+        return True
+        
+    print('Wi-Fi disconnected. Attempting to connect...')
     wlan.active(True)
     wlan.connect(ssid, password)
+    
     attempts = 0
-    while (wlan.isconnected() == False and attempts < 15):
+    while not wlan.isconnected() and attempts < 30:
         print('Attempting to connect...')
-        attempts+=1
+        attempts += 1
         sleep_ms(1000)
-    print(wlan.ifconfig())
-
+        
+    if wlan.isconnected():
+        print('Connected! Network config:', wlan.ifconfig())
+        return True
+    else:
+        print('Error: Could not connect to Wi-Fi.')
+        return False
 
 def send_data(status_message):
-    # Read all data points
+    if not ensure_connection():
+        print("Skipping send_data: No network connection.")
+        return
+
     temperature, humidity, distance = status_message
-    
-    # Prepare the JSON payload
     payload = {
         "t1": temperature,
         "h1": humidity,
         "d": distance,
     }
-
     headers = {"Content-Type": "application/json"}
     
     try:
         print(f"Sending data: {status_message}")
-        # Making the POST request
-        response = urequests.post(website, data=json.dumps(payload), headers=headers)
+        # Add a timeout so it doesn't hang forever if the network drops mid-request
+        response = urequests.post(data_website, data=json.dumps(payload), headers=headers, timeout=10)
         
         print("Server Response Code:", response.status_code)
         print("Server Response:", response.text)
+        response.close() 
         
-        response.close() # Closing the connection to free memory
+    except OSError as e:
+        print(f"Network error in send_data: {e}")
     except Exception as e:
-        print("Failed to send data:", e)
+        print(f"Failed to send data: {e}")
 
 def send_wav(file_path):
-    """
-    Reads a .wav file from the Pico's filesystem and POSTs it as raw binary data.
-    """
-    # 1. Verify the file exists before trying to send
+    if not ensure_connection():
+        print("Skipping send_wav: No network connection.")
+        return
+
     try:
         os.stat(file_path)
     except OSError:
         print(f"Error: The file {file_path} does not exist.")
         return
 
-    # 2. Set the content type to audio/wav
     headers = {"Content-Type": "audio/wav"}
     
     try:
         print(f"Reading and sending {file_path}...")
         
-        # 3. Open the file in binary read mode ('rb')
         with open(file_path, "rb") as f:
             audio_data = f.read() 
             
-        # 4. Make the POST request
-        response = urequests.post(website, data=audio_data, headers=headers)
+        # Add a timeout here as well
+        response = urequests.post(audio_website, data=audio_data, headers=headers, timeout=15)
         
         print("Server Response Code:", response.status_code)
         print("Server Response:", response.text)
-        
-        response.close() # Always close to free up memory
+        response.close() 
         
     except MemoryError:
         print("MemoryError: The WAV file is too large to load into Pico's RAM.")
+    except OSError as e:
+        print(f"Network error in send_wav: {e}")
     except Exception as e:
-        print("Failed to send WAV file:", e)
+        print(f"Failed to send WAV file: {e}")

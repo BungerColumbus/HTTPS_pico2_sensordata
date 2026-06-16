@@ -24,7 +24,7 @@ print("Pico ON")
 
     # Wrapping connection in try/except
 try:
-    network_connection.connect()
+    network_connection.ensure_connection()
 except KeyboardInterrupt:
     print("Detected Ctrl+C, exiting cleanly.")
     sys.exit()  # Exit to REPL instead of resetting the whole board
@@ -35,7 +35,9 @@ while True:
 
     def read_sensors():
         sensor_power.value(1)
-        sleep_ms(50) 
+        
+        # Give the DHT11 and Ultrasonic sensors time to boot up and stabilize
+        sleep_ms(2000) 
     
         distance = get_distance(echo=echo, trig=trig)
         temperature, humidity = get_dht_readings()
@@ -61,7 +63,7 @@ while True:
         
         if file_name: 
             print("Audio saved. Reconnecting to Wi-Fi...")
-            network_connection.connect() 
+            network_connection.ensure_connection() 
             
             # Wait a brief moment to ensure the connection is stable
             sleep_ms(2000) 

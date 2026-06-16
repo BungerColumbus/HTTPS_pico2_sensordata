@@ -116,7 +116,7 @@ form textarea {
     position: absolute;
     width: var(--leaf-wd);
     &:first-child {
-      right: -33px;
+      right: 33px;
       bottom: var(--bar-ht);
     }
     &:nth-child(2):not(:last-child) {
