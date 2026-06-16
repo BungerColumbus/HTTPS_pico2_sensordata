@@ -53,9 +53,20 @@ while True:
     except Exception as e:
         print(f"Failed to process or send data: {e}")
 
+    sleep_ms(3000)
+
     try:
+
         file_name = record_audio()
-        network_connection.send_wav(file_name)
+        
+        if file_name: 
+            print("Audio saved. Reconnecting to Wi-Fi...")
+            network_connection.connect() 
+            
+            # Wait a brief moment to ensure the connection is stable
+            sleep_ms(2000) 
+            
+            network_connection.send_wav(file_name)
     except KeyboardInterrupt:
         print("Detected Ctrl+C, exiting cleanly.")
         sys.exit()

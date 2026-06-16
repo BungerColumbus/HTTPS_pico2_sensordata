@@ -33,7 +33,7 @@ app.set("view engine", "ejs");
 // --- JSON Data Route (Unchanged) ---
 let dataFromPico = { t1: 0, h1: 0, d: 0 }; // Added 'v' to match your console logs
 
-app.post("/api/data", (req, res) => {
+app.post("/api/data", express.json({ type: "*/*" }), (req, res) => {
   const { t1, h1, d } = req.body;
 
   if (t1 !== undefined && h1 !== undefined && d !== undefined) {
