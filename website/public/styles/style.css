@@ -109,24 +109,24 @@ form textarea {
   position: relative;
   flex-grow: 1;
   background-color: var(--brown);
-  min-width: 200px;
+  min-width: 300px;
   height: var(--bar-ht);
 
   > img {
     position: absolute;
     width: var(--leaf-wd);
     &:first-child {
-      right: -200px;
+      right: -67px;
       bottom: var(--bar-ht);
     }
     &:nth-child(2):not(:last-child) {
       top: var(--bar-ht);
-      right: -100px;
+      right: -167px;
       width: calc(var(--leaf-wd) * 1.33);
     }
     &:last-child {
       top: var(--bar-ht);
-      right: 0px;
+      right:67px;
       transform: rotate(180deg);
     }
   }
