@@ -6,8 +6,8 @@ import machine
 import json
 import os
 
-ssid = 'WiFi 3.1'
-password = 'c6etrApEcR'
+ssid = 'Go Go Hotspot Gadget!!!'
+password = 'parolamea:)'
 data_website = "http://188.166.105.198/api/data"
 audio_website = "http://188.166.105.198/api/upload-audio"
 
@@ -94,3 +94,8 @@ def send_wav(file_path):
         print(f"Network error in send_wav: {e}")
     except Exception as e:
         print(f"Failed to send WAV file: {e}")
+
+def powerDownWiFi():
+    wlan = network.WLAN(network.STA_IF)
+    wlan.disconnect()
+    wlan.active(False)

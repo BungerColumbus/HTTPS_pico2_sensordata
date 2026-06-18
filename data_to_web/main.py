@@ -22,44 +22,23 @@ sensor_power.value(0)
 pin.toggle()
 print("Pico ON")
 
-    # Wrapping connection in try/except
-try:
-    network_connection.ensure_connection()
-except KeyboardInterrupt:
-    print("Detected Ctrl+C, exiting cleanly.")
-    sys.exit()  # Exit to REPL instead of resetting the whole board
-except Exception as e:
-    print(f"Connection failed: {e}")
+def read_sensors():
+    sensor_power.value(1)
+        
+    # Give the DHT11 and Ultrasonic sensors time to boot up and stabilize
+    sleep_ms(2000) 
+    
+    distance = get_distance(echo=echo, trig=trig)
+    temperature, humidity = get_dht_readings()
+    
+    sensor_power.value(0)
+    return (temperature, humidity, distance)
 
 while True:
-
-    def read_sensors():
-        sensor_power.value(1)
-        
-        # Give the DHT11 and Ultrasonic sensors time to boot up and stabilize
-        sleep_ms(2000) 
     
-        distance = get_distance(echo=echo, trig=trig)
-        temperature, humidity = get_dht_readings()
-    
-        sensor_power.value(0)
-        return (temperature, humidity, distance)
-
-    # Gather and send data
-    try:
-        data = read_sensors()
-        network_connection.send_data(data)
-    except KeyboardInterrupt:
-        print("Detected Ctrl+C, exiting cleanly.")
-        sys.exit()
-    except Exception as e:
-        print(f"Failed to process or send data: {e}")
-
-    sleep_ms(3000)
+    file_name = record_audio()
 
     try:
-
-        file_name = record_audio()
         
         if file_name: 
             print("Audio saved. Reconnecting to Wi-Fi...")
@@ -75,8 +54,24 @@ while True:
     except Exception as e:
         print(f"Failed to process or send audio data: {e}")
 
+    try:
+        data = read_sensors()
+        network_connection.send_data(data)
+    except KeyboardInterrupt:
+        print("Detected Ctrl+C, exiting cleanly.")
+        sys.exit()
+    except Exception as e:
+        print(f"Failed to process or send stringdata: {e}")
+
+    sleep_ms(3000)
+
     pin.value(0) 
 
     print("Going to sleep...")
+    network_connection.powerDownWiFi()
     # Sleep for 10 seconds.
     sleep_ms(10000)
+    # Here we are using just sleep. 
+    # If this was working on battery I would simply switch from using sleep to using deepsleep.
+    # It would also be possible to get rid of the infinite loop as main.py gets run each time
+    # the pico awakes itself from deepsleep.
